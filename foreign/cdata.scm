@@ -83,7 +83,7 @@
 
 ;;; Code:
 
-(define-module (nyacc foreign cdata)
+(define-module (foreign cdata)
   #:export (cbase
             cstruct cunion cpointer carray cenum cfunction
             make-cdata make-cdata/* cdata-ref cdata-set! cdata&-ref ccast
@@ -131,7 +131,7 @@
                           bytevector->pointer scm->pointer string->pointer
                           float double complex-float complex-double
                           int8 uint8 int16 uint16 int32 uint32 int64 uint64))
-  #:use-module (nyacc foreign arch-info))
+  #:use-module (foreign arch-info))
 
 (use-modules (ice-9 pretty-print))
 (define (pperr exp) (pretty-print exp (current-error-port)))
