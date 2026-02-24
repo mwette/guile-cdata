@@ -1,13 +1,13 @@
-dnl configure.ac for guile-nyacc
+dnl configure.ac for guile-cdata
 
-dnl Copyright (C) 2019-2020 Matthew R. Wette
+dnl Copyright (C) 2026 Matthew Wette
 dnl
 dnl Copying and distribution of this file, with or without modification,
 dnl are permitted in any medium without royalty provided the copyright
 dnl notice and this notice are preserved.  This file is offered as-is,
 dnl without any warranty.
 
-AC_INIT([nyacc], [3.02.0], [], [], [https://savannah.nongnu.org/project/nyacc])
+AC_INIT([guile-cdata], [3.02.0], [], [], [https://github.com/mwette/nyacc])
 AC_CONFIG_SRCDIR(module/nyacc/version.scm)
 AC_CONFIG_AUX_DIR([etc])
 AC_CONFIG_MACRO_DIR([etc])
@@ -16,9 +16,6 @@ AC_ARG_WITH(guile,  [  --with-guile            path to binary],
             ,with_guile=unspecified)
 AC_ARG_WITH(target, [  --with-target           guild target flag],
             ,target=unspecified)
-AC_ARG_ENABLE(debug,[  --enable-debug          build for debugging in guile],
-            ,debug=unspecified)
-
 if test "_$with_guile" != "_unspecified"; then
   GUILE=$with_guile
 else
@@ -54,7 +51,6 @@ else
   GUILE_DEBUG=
 fi
 AC_SUBST([GUILE_TARGET])
-AC_SUBST([GUILE_DEBUG])
 
 AC_SUBST([GUILE_GLOBAL_SITE])
 AC_SUBST([GUILE_SITE_CCACHE])
@@ -63,16 +59,7 @@ AC_SUBST([GUILE_DATA])
 AC_SUBST([GUILE_LOAD_PATH])
 AC_SUBST([GUILE_LOAD_COMPILED_PATH])
 
-dnl needed by etc/guild:
-AC_SUBST([installed_guile],$GUILE)
-
-AC_CONFIG_FILES([Makefile \
-	module/Makefile \
-	doc/Makefile \
-	test-suite/Makefile \
-	examples/Makefile \
-])
-AC_CONFIG_FILES([etc/guild],[chmod +x etc/guild])
+AC_CONFIG_FILES([Makefile])
 
 AC_OUTPUT
 
