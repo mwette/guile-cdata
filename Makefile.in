@@ -7,7 +7,7 @@
 # is granted.  This file is offered as-is, without any warranty.
 
 GUILE = @GUILE@
-GUILD = @GUILD@
+GUILD = @abs_top_builddir@/etc/guild
 
 GUILE_LOAD_PATH = @GUILE_LOAD_PATH@
 GUILE_LOAD_COMPILED_PATH = @GUILE_LOAD_COMPILED_PATH@
@@ -17,17 +17,22 @@ GUILE_TARGET = @GUILE_TARGET@
 SITE_SCM_DIR = @GUILE_GLOBAL_SITE@
 SITE_SCM_GO_DIR = @GUILE_SITE_CCACHE@
 
-BINARIES = arch-info.go cdata.go
-SOURCES = arch-info.scm cdata.scm
+BINARIES = foreign/arch-info.go foreign/cdata.go
+SOURCES = foreign/arch-info.scm foreign/cdata.scm
+
+VPATH = @abs_top_srcdir@
+TOPDIR = @abs_top_srcdir@
+SCMDIR = @abs_top_srcdir@
+GODIR = @abs_top_builddir@
 
 # execute tests in the test-suite subdir
 TESTENV = GUILE_LOAD_PATH= GUILE_AUTO_COMPILE=0 $(GUILE) -L.. -C.. 2>/dev/null
 TESTS = arch-info-01.test cdata-01.test cdata-02.test
 
 %.go: %.scm
-        GUILE_LOAD_PATH=.:$(GUILE_LOAD_PATH) \
-        GUILE_LOAD_COMPILED_PATH=.:$(GUILE_LOAD_COMPILED_PATH) \
-          $(GUILD) compile $(GUILE_TARGET) -o $@ $<
+	GUILE_LOAD_PATH=$(SCMDIR):$(GUILE_LOAD_PATH) \
+	GUILE_LOAD_COMPILED_PATH=$(GODIR):$(GUILE_LOAD_COMPILED_PATH) \
+	  $(GUILD) compile $(GUILE_TARGET) -o $@ $<
 
 .PHONY: default
 default: $(BINARIES)
@@ -35,11 +40,11 @@ default: $(BINARIES)
 
 .PHONY: check
 check:
-        @(RES="ALL PASS"; export RES; cd test-suite; \
-          for test in $(TESTS); do \
-            $(TESTENV) $${test}); \
-            if test $$? -ne 0; then RES="SOMETHING FAILED"; fi; \
-          done; echo $$RES)
+	@(RES="ALL PASS"; export RES; cd test-suite; \
+	  for test in $(TESTS); do \
+	    $(TESTENV) $${test}); \
+	    if test $$? -ne 0; then RES="SOMETHING FAILED"; fi; \
+	done; echo $$RES)
 
 .PHONY: install
 install: install-srcs install-bins
@@ -51,20 +56,20 @@ uninstall:
 
 .PHONY: install-srcs
 install-srcs:
-        @mkdir -p $(DESTDIR)$(SITE_SCM_DIR)/foreign
-        @echo "installing sources in $(DESTDIR)$(SITE_SCM_DIR)/foreign"
-        @for file in $(SOURCES); do \
-	  cp $${file} $(DESTDIR)$(SITE_SCM_DIR)/foreign/$${file}; \
-        done
-        #@cp $(TOPDIR)/README $(DESTDIR)$(SITE_SCM_DIR)/foreign/README.cdata
+	@mkdir -p $(DESTDIR)$(SITE_SCM_DIR)/foreign
+	@echo "installing sources in $(DESTDIR)$(SITE_SCM_DIR)/foreign"
+	@for file in $(SOURCES); do \
+	  cp $(SCMDIR)/$${file} $(DESTDIR)$(SITE_SCM_DIR)/foreign/$${file}; \
+	done
+	#@cp $(TOPDIR)/README $(DESTDIR)$(SITE_SCM_DIR)/foreign/README.cdata
 
 .PHONY: install-bins
 install-bins: $(BINARIES)
-        @mkdir -p $(DESTDIR)$(SITE_GO_DIR)/foreign
-        @echo "installing binaries in $(DESTDIR)$(SITE_GO_DIR)/foreign"
-        @for file in $(BINARIES); do \
-          cp $${file} $(DESTDIR)$(SITE_GO_DIR)/foreign/$${file}; \
-        done
+	@mkdir -p $(DESTDIR)$(SITE_GO_DIR)/foreign
+	@echo "installing binaries in $(DESTDIR)$(SITE_GO_DIR)/foreign"
+	@for file in $(BINARIES); do \
+	  cp $(GODIR)/$${file} $(DESTDIR)$(SITE_GO_DIR)/foreign/$${file}; \
+	done
 
 .PHONY: install-bins
 install-bins: $(BINARIES)

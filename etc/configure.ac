@@ -7,8 +7,7 @@ dnl are permitted in any medium without royalty provided the copyright
 dnl notice and this notice are preserved.  This file is offered as-is,
 dnl without any warranty.
 
-AC_INIT([guile-cdata], [3.02.0], [], [], [https://github.com/mwette/nyacc])
-AC_CONFIG_SRCDIR(module/nyacc/version.scm)
+AC_INIT([guile-cdata],[3.02.0],[],[],[https://github.com/mwette/guile-cdata])
 AC_CONFIG_AUX_DIR([etc])
 AC_CONFIG_MACRO_DIR([etc])
 
@@ -45,11 +44,6 @@ if test "_$target" != "_unspecified"; then
 else
   GUILE_TARGET=
 fi
-if test "_$debug" != "_unspecified"; then
-  GUILE_DEBUG=-O0
-else
-  GUILE_DEBUG=
-fi
 AC_SUBST([GUILE_TARGET])
 
 AC_SUBST([GUILE_GLOBAL_SITE])
@@ -59,7 +53,10 @@ AC_SUBST([GUILE_DATA])
 AC_SUBST([GUILE_LOAD_PATH])
 AC_SUBST([GUILE_LOAD_COMPILED_PATH])
 
+AC_SUBST([installed_guile],$GUILE)
+
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([etc/guild],[chmod +x etc/guild])
 
 AC_OUTPUT
 

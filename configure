@@ -603,11 +603,11 @@ PACKAGE_TARNAME='guile-cdata'
 PACKAGE_VERSION='3.02.0'
 PACKAGE_STRING='guile-cdata 3.02.0'
 PACKAGE_BUGREPORT=''
-PACKAGE_URL='https://github.com/mwette/nyacc'
+PACKAGE_URL='https://github.com/mwette/guile-cdata'
 
-ac_unique_file="module/nyacc/version.scm"
 ac_subst_vars='LTLIBOBJS
 LIBOBJS
+installed_guile
 GUILE_LOAD_COMPILED_PATH
 GUILE_LOAD_PATH
 GUILE_DATA
@@ -1284,7 +1284,7 @@ Optional Packages:
   --with-target           guild target flag
 
 Report bugs to the package provider.
-guile-cdata home page: <https://github.com/mwette/nyacc>.
+guile-cdata home page: <https://github.com/mwette/guile-cdata>.
 _ACEOF
 ac_status=$?
 fi
@@ -1729,7 +1729,6 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
 
-
 # Check whether --with-guile was given.
 if test ${with_guile+y}
 then :
@@ -1828,11 +1827,6 @@ if test "_$target" != "_unspecified"; then
 else
   GUILE_TARGET=
 fi
-if test "_$debug" != "_unspecified"; then
-  GUILE_DEBUG=-O0
-else
-  GUILE_DEBUG=
-fi
 
 
 
@@ -1840,9 +1834,14 @@ fi
 
 
 
+
+
+installed_guile=$GUILE
 
 
 ac_config_files="$ac_config_files Makefile"
+
+ac_config_files="$ac_config_files etc/guild"
 
 
 cat >confcache <<\_ACEOF
@@ -2429,7 +2428,7 @@ Configuration files:
 $config_files
 
 Report bugs to the package provider.
-guile-cdata home page: <https://github.com/mwette/nyacc>."
+guile-cdata home page: <https://github.com/mwette/guile-cdata>."
 
 _ACEOF
 ac_cs_config=`printf "%s\n" "$ac_configure_args" | sed "$ac_safe_unquote"`
@@ -2548,6 +2547,7 @@ for ac_config_target in $ac_config_targets
 do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "etc/guild") CONFIG_FILES="$CONFIG_FILES etc/guild" ;;
 
   *) as_fn_error $? "invalid argument: '$ac_config_target'" "$LINENO" 5;;
   esac
@@ -2961,6 +2961,11 @@ which seems to be undefined.  Please make sure it is defined" >&2;}
 
   esac
 
+
+  case $ac_file$ac_mode in
+    "etc/guild":F) chmod +x etc/guild ;;
+
+  esac
 done # for ac_tag
 
 
