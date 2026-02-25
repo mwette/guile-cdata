@@ -11,6 +11,8 @@ AC_INIT([guile-cdata],[3.02.0],[],[],[https://github.com/mwette/guile-cdata])
 AC_CONFIG_AUX_DIR([etc])
 AC_CONFIG_MACRO_DIR([etc])
 
+AC_ARG_ENABLE([fast-install])
+
 AC_ARG_WITH(guile,  [  --with-guile            path to binary],
             ,with_guile=unspecified)
 AC_ARG_WITH(target, [  --with-target           guild target flag],
