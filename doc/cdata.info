@@ -9,7 +9,7 @@ Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.  A
 copy of the license is included with the distribution as COPYING.DOC.
 INFO-DIR-SECTION Software development
 START-INFO-DIR-ENTRY
-* NYACC CData User Guide: (nyacc).    The NYACC CData User guide.
+* CData User Guide: (cdata).    The CData User guide.
 END-INFO-DIR-ENTRY
 
 
@@ -22,7 +22,7 @@ CData Reference Manual
 Matt Wette
 October 2024
 
-This is a user guide for the NYACC CData module for Guile.
+This is a user guide for the CData module for Guile.
 
 * Menu:
 
@@ -35,18 +35,17 @@ Introduction
 ============
 
 The _cdata_ module (‘(foreign cdata)’ and its partner _arch-info_
-(‘(foreign arch-info)’ provide a way to work with data originating
-from C libraries.  We hope the module is reasonably easy to understand
-and use.  Size and alignment is tracked for all types.  Types are
-classified into the following kinds: base, struct, union, array,
-pointer, enum and function.  The procedures ‘cbase’, ‘cstruct’,
-‘cunion’, ‘cpointer’, ‘carray’, ‘cenum’ and ‘cfunction’ generate _ctype_
-objects, and the procedure ‘make-cdata’ will generate data objects based
-on these.  The underlying bits of data are stored in Scheme bytevectors.
-Access to component data is provided by the ‘cdata-ref’ procedure and
-mutation is accomplished via the ‘cdata-set!’ procedure.  The modules
-support non-native machine architectures via the global parameter
-‘*arch*’.
+(‘(foreign arch-info)’ provide a way to work with data originating from
+C libraries.  We hope the module is reasonably easy to understand and
+use.  Size and alignment is tracked for all types.  Types are classified
+into the following kinds: base, struct, union, array, pointer, enum and
+function.  The procedures ‘cbase’, ‘cstruct’, ‘cunion’, ‘cpointer’,
+‘carray’, ‘cenum’ and ‘cfunction’ generate _ctype_ objects, and the
+procedure ‘make-cdata’ will generate data objects based on these.  The
+underlying bits of data are stored in Scheme bytevectors.  Access to
+component data is provided by the ‘cdata-ref’ procedure and mutation is
+accomplished via the ‘cdata-set!’ procedure.  The modules support
+non-native machine architectures via the global parameter ‘*arch*’.
 
    Beyond size and alignment, base type objects carry a symbolic tag to
 determine the appropriate low level machine type.  The low level machine
@@ -612,8 +611,8 @@ References
 
 
 Tag Table:
-Node: Top611
-Node: Introduction851
+Node: Top599
+Node: Introduction833
 
 End Tag Table
 
