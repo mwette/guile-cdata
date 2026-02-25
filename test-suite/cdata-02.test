@@ -1,6 +1,6 @@
 ;; nyacc/foreign/cdata-02.test		-*- scheme -*-
 ;;
-;; Copyright (C) 2024-2025 Matthew Wette
+;; Copyright (C) 2024-2026 Matthew Wette
 ;;
 ;; Copying and distribution of this file, with or without modification,
 ;; are permitted in any medium without royalty provided the copyright
@@ -32,7 +32,7 @@
 (define d4 (make-cdata t4))
 (define d1 (make-cdata t1))
 
-(with-test-prefix "nyacc/foreign/cdata-02"
+(with-test-prefix "foreign/cdata-02"
 
   (pass-if "foreign arch test set up"
     (let ()

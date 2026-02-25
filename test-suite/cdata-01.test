@@ -1,6 +1,6 @@
-;; nyacc/foreign/cdata-01.test		-*- scheme -*-
+;; foreign/cdata-01.test		-*- scheme -*-
 ;;
-;; Copyright (C) 2024-2025 Matthew Wette
+;; Copyright (C) 2024-2026 Matthew Wette
 ;;
 ;; This library is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU Lesser General Public
@@ -262,7 +262,7 @@
             (unload-foreign-library testlib)))
         'unresolved)))
 
-(with-test-prefix "nyacc/foreign/cdata-01"
+(with-test-prefix "foreign/cdata-01"
 
   (pass-if "struct layout vs C (with bitfields)"
     ;; exec 10 random layouts with 10 random field values each
