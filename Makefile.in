@@ -17,13 +17,13 @@ GUILE_TARGET = @GUILE_TARGET@
 SITE_SCM_DIR = @GUILE_GLOBAL_SITE@
 SITE_SCM_GO_DIR = @GUILE_SITE_CCACHE@
 
-BINARIES = foreign/arch-info.go foreign/cdata.go
-SOURCES = foreign/arch-info.scm foreign/cdata.scm
-
-VPATH = @abs_top_srcdir@
+VPATH = @abs_top_srcdir@/module
 TOPDIR = @abs_top_srcdir@
 SCMDIR = @abs_top_srcdir@
 GODIR = @abs_top_builddir@
+
+SOURCES = foreign/arch-info.scm foreign/cdata.scm
+BINARIES = foreign/arch-info.go foreign/cdata.go
 
 # execute tests in the test-suite subdir
 TESTENV = GUILE_LOAD_PATH= GUILE_LOAD_COMPILED_PATH= GUILE_AUTO_COMPILE=0 \
@@ -61,9 +61,9 @@ install-srcs:
 	@mkdir -p $(DESTDIR)$(SITE_SCM_DIR)/foreign
 	@echo "installing sources in $(DESTDIR)$(SITE_SCM_DIR)/foreign"
 	@for file in $(SOURCES); do \
-	  cp $(SCMDIR)/$${file} $(DESTDIR)$(SITE_SCM_DIR)/$${file}; \
+	  cp $(SCMDIR)/module/$${file} $(DESTDIR)$(SITE_SCM_DIR)/$${file}; \
 	done
-	#@cp $(TOPDIR)/README $(DESTDIR)$(SITE_SCM_DIR)/foreign/README.cdata
+	@#cp $(TOPDIR)/README $(DESTDIR)$(SITE_SCM_DIR)/foreign/README.cdata
 
 .PHONY: install-bins
 install-bins: $(BINARIES)
