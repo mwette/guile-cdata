@@ -1,6 +1,6 @@
 ;;; nyacc/foreign/cdata.scm -
 
-;; Copyright (C) 2023-2025 Matthew Wette
+;; Copyright (C) 2023-2026 Matthew Wette
 ;;
 ;; This library is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU Lesser General Public
@@ -115,7 +115,8 @@
             cpointer-type cpointer-mtype
             carray-type carray-length
             cenum-symf cenum-numf cenum-syml
-            cfunction-proc->ptr cfunction-ptr->proc)
+            cfunction-proc->ptr cfunction-ptr->proc
+            *cdata-version*)
   #:re-export (mtype-bv-ref mtype-bv-set!)
   #:use-module (ice-9 hash-table)
   #:use-module (ice-9 match)
@@ -132,6 +133,8 @@
                           float double complex-float complex-double
                           int8 uint8 int16 uint16 int32 uint32 int64 uint64))
   #:use-module (foreign arch-info))
+
+(define *cdata-version* "1.0.5")
 
 (use-modules (ice-9 pretty-print))
 (define (pperr exp) (pretty-print exp (current-error-port)))
