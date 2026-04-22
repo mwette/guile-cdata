@@ -28,7 +28,7 @@ October 2024
 @ifnottex
 @dircategory Software development
 @direntry 
-* CData User Guide: (cdata).    The CData User guide.
+* CData User Guide: (nyacc).    The CData User guide.
 @end direntry
 
 @node Top, Introduction, (dir), (dir)
@@ -361,6 +361,10 @@ names and types of all fields must be equal, unless, for @code{ctype-eqv?}
 they are pointer types with delays.  The implementation of
 @code{ctype-equal?} is not complete: it is currently the same as
 @code{ctype-eqv?}.
+@end deffn
+
+@deffn {Procedure} ctype-primary type => type
+Returns the primary type for pointers and arrays.
 @end deffn
 
 @deffn {Procedure} ctype-sel type ix [tag ...] => ((ix . ct) (ix . ct) ...)

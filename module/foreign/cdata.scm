@@ -1,6 +1,6 @@
 ;;; nyacc/foreign/cdata.scm -
 
-;; Copyright (C) 2023-2025 Matthew Wette
+;; Copyright (C) 2023-2026 Matthew Wette
 ;;
 ;; This library is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU Lesser General Public
@@ -134,7 +134,7 @@
                           int8 uint8 int16 uint16 int32 uint32 int64 uint64))
   #:use-module (foreign arch-info))
 
-(define *cdata-version* "1.0.6")
+(define *cdata-version* "1.0.7")
 
 (use-modules (ice-9 pretty-print))
 (define (pperr exp) (pretty-print exp (current-error-port)))
@@ -674,6 +674,8 @@
 ;; Returns the primary type for pointers and arrays.
 ;; @end deffn
 (define (ctype-primary type)
+  "- Procedure: ctype-primary type => type
+     Returns the primary type for pointers and arrays."
   (assert-ctype type 'ctype-primary)
   (case (ctype-kind type)
     ((pointer) (cpointer-type (ctype-info type)))
