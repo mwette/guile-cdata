@@ -114,7 +114,7 @@
             cbitfield-mtype cbitfield-shift cbitfield-width cbitfield-signed?
             cpointer-type cpointer-mtype
             carray-type carray-length
-            cenum-symf cenum-numf cenum-syml
+            cenum-mtype cenum-symf cenum-numf cenum-syml
             cfunction-proc->ptr cfunction-ptr->proc
             *cdata-version*)
   #:re-export (mtype-bv-ref mtype-bv-set!)
@@ -134,7 +134,7 @@
                           int8 uint8 int16 uint16 int32 uint32 int64 uint64))
   #:use-module (foreign arch-info))
 
-(define *cdata-version* "1.0.7")
+(define *cdata-version* "1.0.8")
 
 (use-modules (ice-9 pretty-print))
 (define (pperr exp) (pretty-print exp (current-error-port)))
@@ -608,14 +608,13 @@
     (if (< 0 mn)
         (cond
          ((and (<= -128 mn) (< mx 128)) 's8)
-         ((and (<= -32768 mn) (< mx 32768)) (mtypeof-basetype 'int16_t))
-         ((and (<= -2147483648 mn) (< mx 2147483648))
-          (mtypeof-basetype 'int32_t))
+         ((and (<= -32768 mn) (< mx 32768)) 's16)
+         ((and (<= -2147483648 mn) (< mx 2147483648)) 's32)
          (else (mtypeof-basetype 'int)))
         (cond
          ((< mx 256) 'u8)
-         ((< mx 32768) (mtypeof-basetype 'uint16_t))
-         ((< mx 2147483648) (mtypeof-basetype 'uint32_t))
+         ((< mx 32768) 'u16)
+         ((< mx 2147483648) 'u32)
          (else (mtypeof-basetype 'int)))))
   (let loop ((snl '()) (nxt 0) (enl enum-list))
     (if (null? enl)
