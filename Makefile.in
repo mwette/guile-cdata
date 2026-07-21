@@ -53,8 +53,8 @@ install: install-srcs install-bins
 	@true
 
 .PHONY: uninstall
-uninstall:
-	@echo "not smart enough to uninstall"
+uninstall: uninstall-srcs uninstall-bins uninstall-info uninstall-html
+	@true
 
 .PHONY: install-srcs
 install-srcs:
@@ -65,6 +65,12 @@ install-srcs:
 	done
 	@#cp $(TOPDIR)/README $(DESTDIR)$(SITE_SCM_DIR)/foreign/README.cdata
 
+.PHONY: uninstall-srcs
+uninstall-srcs:
+	@for file in $(SOURCES); do \
+	  rm -f $(DESTDIR)$(SITE_SCM_DIR)/$${file}; \
+	done
+
 .PHONY: install-bins
 install-bins: $(BINARIES)
 	@mkdir -p $(DESTDIR)$(SITE_SCM_GO_DIR)/foreign
@@ -73,20 +79,37 @@ install-bins: $(BINARIES)
 	  cp $(GODIR)/$${file} $(DESTDIR)$(SITE_SCM_GO_DIR)/$${file}; \
 	done
 
-.PHONY: install-bins
-install-bins: $(BINARIES)
+.PHONY: uninstall-bins
+uninstall-bins:
+	@for file in $(BINARIES); do \
+	  rm -f $(DESTDIR)$(SITE_GO_DIR)/$${file}; \
+	done
 
-#.PHONY: install-doc
-#install-docs: $(BINARIES)
+.PHONY: install-info
+install-info:
+	mkdir -p $(DESTDIR)$(INFODIR)
+	$(INSTALL) $(TOPDIR)/doc/cdata.info $(DESTDIR)$(INFODIR)
+
+.PHONY: uninstall-info
+uninstall-info: 
+	rm -f $(DESTDIR)$(INFODIR)/cdata.info
+
+.PHONY: install-html
+install-info:
+	mkdir -p $(DESTDIR)$(DOCDIR)
+	$(INSTALL) $(TOPDIR)/doc/cdata.html $(DESTDIR)$(DOCDIR)
+
+.PHONY: uninstall-html
+uninstall-info: 
+	rm -f $(DESTDIR)$(DOCDIR)/cdata.html
 
 .PHONY: clean
 clean:
-	rm -f *.go test-suite/*.
+	rm -f foreign/*.go
 
 .PHONY: dist-clean
 distclean:
 	rm -f Makefile config.log config.status
-
 
 .PHONY: dist-hook
 dist-hook:
