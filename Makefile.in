@@ -8,6 +8,7 @@
 
 GUILE = @GUILE@
 GUILD = @abs_top_builddir@/etc/guild
+INSTALL = $(TOPDIR)/etc/install-sh -m 644
 
 GUILE_LOAD_PATH = @GUILE_LOAD_PATH@
 GUILE_LOAD_COMPILED_PATH = @GUILE_LOAD_COMPILED_PATH@
@@ -16,6 +17,9 @@ GUILE_TARGET = @GUILE_TARGET@
 
 SITE_SCM_DIR = @GUILE_GLOBAL_SITE@
 SITE_SCM_GO_DIR = @GUILE_SITE_CCACHE@
+
+INFODIR = @GUILE_DATA@/info
+HTMLDIR = @GUILE_DATA@/doc/guile-cdata
 
 VPATH = @abs_top_srcdir@/module
 TOPDIR = @abs_top_srcdir@
@@ -49,7 +53,7 @@ check:
 	done; echo $$RES)
 
 .PHONY: install
-install: install-srcs install-bins
+install: install-srcs install-bins install-info install-html
 	@true
 
 .PHONY: uninstall
@@ -61,12 +65,12 @@ install-srcs:
 	@mkdir -p $(DESTDIR)$(SITE_SCM_DIR)/foreign
 	@echo "installing sources in $(DESTDIR)$(SITE_SCM_DIR)/foreign"
 	@for file in $(SOURCES); do \
-	  cp $(SCMDIR)/module/$${file} $(DESTDIR)$(SITE_SCM_DIR)/$${file}; \
+	  $(INSTALL) $(SCMDIR)/module/$${file} $(DESTDIR)$(SITE_SCM_DIR)/$${file}; \
 	done
-	@#cp $(TOPDIR)/README $(DESTDIR)$(SITE_SCM_DIR)/foreign/README.cdata
 
 .PHONY: uninstall-srcs
 uninstall-srcs:
+	@echo uninstalling cdata sources
 	@for file in $(SOURCES); do \
 	  rm -f $(DESTDIR)$(SITE_SCM_DIR)/$${file}; \
 	done
@@ -76,32 +80,37 @@ install-bins: $(BINARIES)
 	@mkdir -p $(DESTDIR)$(SITE_SCM_GO_DIR)/foreign
 	@echo "installing binaries in $(DESTDIR)$(SITE_SCM_GO_DIR)/foreign"
 	@for file in $(BINARIES); do \
-	  cp $(GODIR)/$${file} $(DESTDIR)$(SITE_SCM_GO_DIR)/$${file}; \
+	  $(INSTALL) $(GODIR)/$${file} $(DESTDIR)$(SITE_SCM_GO_DIR)/$${file}; \
 	done
 
 .PHONY: uninstall-bins
 uninstall-bins:
+	@echo uninstalling cdata binaries
 	@for file in $(BINARIES); do \
-	  rm -f $(DESTDIR)$(SITE_GO_DIR)/$${file}; \
+	  rm -f $(DESTDIR)$(SITE_SCM_GO_DIR)/$${file}; \
 	done
 
 .PHONY: install-info
 install-info:
-	mkdir -p $(DESTDIR)$(INFODIR)
-	$(INSTALL) $(TOPDIR)/doc/cdata.info $(DESTDIR)$(INFODIR)
+	@echo "installing cdata.info in $(DESTDIR)$(INFODIR)"
+	@mkdir -p $(DESTDIR)$(INFODIR)
+	@$(INSTALL) $(TOPDIR)/doc/cdata.info $(DESTDIR)$(INFODIR)
 
 .PHONY: uninstall-info
-uninstall-info: 
-	rm -f $(DESTDIR)$(INFODIR)/cdata.info
+uninstall-info:
+	@echo uninstalling cdata info file
+	@rm -f $(DESTDIR)$(INFODIR)/cdata.info
 
 .PHONY: install-html
-install-info:
-	mkdir -p $(DESTDIR)$(DOCDIR)
-	$(INSTALL) $(TOPDIR)/doc/cdata.html $(DESTDIR)$(DOCDIR)
+install-html:
+	@echo "installing cdata.html in $(DESTDIR)$(INFODIR)"
+	@mkdir -p $(DESTDIR)$(HTMLDIR)
+	@$(INSTALL) $(TOPDIR)/doc/cdata.html $(DESTDIR)$(HTMLDIR)
 
 .PHONY: uninstall-html
-uninstall-info: 
-	rm -f $(DESTDIR)$(DOCDIR)/cdata.html
+uninstall-html: 
+	@echo uninstalling cdata html file
+	@rm -f $(DESTDIR)$(HTMLDIR)/cdata.html
 
 .PHONY: clean
 clean:
