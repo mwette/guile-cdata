@@ -28,12 +28,13 @@
 
 (define cdata-sha256-base32-map
   '(("99.9.9" . "marker - do not delete")
+    ("1.0.7" . "0q5c47v104cyjwzapa47cg9kyj9pihgys3crfkdg6143020f7iql")
     ("0.0.0" . "marker - do not delete")))
 
 (define cdata-base
   (package
    (name "cdata-base")
-   (version "1.0.8")
+   (version "1.0.7")
    (source 
     (origin
      (method git-fetch)
@@ -74,7 +75,7 @@ bytevectors.")))
   '(("99.9.9" . "marker - do not delete")
     ("0.0.0" . "marker - do not delete")))
 
-(define-public cdata-dev
+#;(define-public cdata-dev
   (package
    (inherit cdata-base)
    (name "cdata-dev")
