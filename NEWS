@@ -5,6 +5,7 @@ are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.  This file is offered as-is,
 without any warranty.
 
-2026-XX-XX  v1.1.1
+2026-07-27  v1.1.1
         * added NEWS file
+        * added .NOTPARALLEL: rule to Makefile.in
 
