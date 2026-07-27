@@ -123,4 +123,6 @@ distclean:
 .PHONY: dist-hook
 dist-hook:
 
+.NOTPARALLEL:
+
 # --- last line ---
