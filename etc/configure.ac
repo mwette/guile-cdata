@@ -31,12 +31,12 @@ guile_prefix=`$GUILE -c "(display (assq-ref %guile-build-info 'prefix))"`
 
 if test "$prefix" != "NONE"; then
   echo "prefix provided: use default paths for guile dirs"
-  GUILE_GLOBAL_SITE=$prefix/share/guile/site
+  GUILE_SITE_DIR=$prefix/share/guile/$GUILE_EFFECTIVE_VERSION/site-dir
   GUILE_SITE_CCACHE=$prefix/lib/guile/$GUILE_EFFECTIVE_VERSION/site-ccache
   GUILE_DATA=$prefix/share
 else
   echo "using paths for installed guile"
-  GUILE_GLOBAL_SITE=`$GUILE -c '(display (%global-site-dir))'`
+  GUILE_SITE_DIR=`$GUILE -c '(display (%site-dir))'`
   GUILE_SITE_CCACHE=`$GUILE -c '(display (%site-ccache-dir))'`
   GUILE_DATA=`$GUILE -c "(display (assq-ref %guile-build-info 'datadir))"`
 fi
@@ -48,7 +48,7 @@ else
 fi
 AC_SUBST([GUILE_TARGET])
 
-AC_SUBST([GUILE_GLOBAL_SITE])
+AC_SUBST([GUILE_SITE_DIR])
 AC_SUBST([GUILE_SITE_CCACHE])
 AC_SUBST([GUILE_DATA])
 

@@ -5,6 +5,10 @@ are permitted in any medium without royalty provided the copyright
 notice and this notice are preserved.  This file is offered as-is,
 without any warranty.
 
+2026-09-23  v2.0.0
+        * change source install directory to share/guile/site/3.0
+          from share/guile/site/
+
 2026-07-27  v1.1.1
         * added NEWS file
         * added .NOTPARALLEL: rule to Makefile.in
