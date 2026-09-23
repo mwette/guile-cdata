@@ -1826,7 +1826,7 @@ guile_prefix=`$GUILE -c "(display (assq-ref %guile-build-info 'prefix))"`
 
 if test "$prefix" != "NONE"; then
   echo "prefix provided: use default paths for guile dirs"
-  GUILE_SITE_DIR=$prefix/share/guile/$GUILE_EFFECTIVE_VERSION/site-dir
+  GUILE_SITE_DIR=$prefix/share/guile/site/$GUILE_EFFECTIVE_VERSION
   GUILE_SITE_CCACHE=$prefix/lib/guile/$GUILE_EFFECTIVE_VERSION/site-ccache
   GUILE_DATA=$prefix/share
 else

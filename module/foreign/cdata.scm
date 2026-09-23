@@ -68,7 +68,7 @@
                           int8 uint8 int16 uint16 int32 uint32 int64 uint64))
   #:use-module (foreign arch-info))
 
-(define *cdata-version* "2.0.0")
+(define *cdata-version* "2.0.1")
 
 (use-modules (ice-9 pretty-print))
 (define (pperr exp) (pretty-print exp (current-error-port)))
